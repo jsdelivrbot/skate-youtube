@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
+import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 
-const API_KEY = 'bla_bla_bla_bla_bla';
+const API_KEY = 'bla bla bla bla';
 
 class App extends Component {
   constructor(props) {
@@ -12,8 +14,7 @@ class App extends Component {
     this.state = { videos: [] };
 
     YTSearch({key: API_KEY, term: 'skateboard'}, (videos) => {
-      // console.log(data);
-      // this.setState({ videos: videos })
+      // console.log(videos);
       this.setState({ videos });
     });
   }
@@ -22,9 +23,12 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
+        <VideoDetail video={this.state.videos[0]} />
+        <VideoList videos={this.state.videos} />
       </div>
     );
   }
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
+
